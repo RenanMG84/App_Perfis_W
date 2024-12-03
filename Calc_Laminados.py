@@ -121,9 +121,13 @@ class Principal(Tk):
         except Exception as e:
             messagebox.showerror("Erro", f"Ocorreu um erro inesperado: {e}")
    
+    def lista_tracao(self): #função para buscar a lista de perfis aprovados a tração
+        self.Barras = Frame_Perfil()
+        for perfil in self.Barras.perfis:
+            atributos = vars(perfil)  # Retorna os atributos do objeto como um dicionário
+            print(atributos)  # Exibe todos os atributos
 
-    def apagar(self):
-        #apaga as entradas
+    def apagar(self): #apaga as entradas
         self.frame_resul.entry_ntrd.delete(0, END)
         self.frame_resul.entry_ncrd.delete(0, END)
         self.frame_resul.entry_vxrd.delete(0, END)
@@ -138,7 +142,7 @@ class Principal(Tk):
 class Solicitacoes(Frame):
     def __init__(self, master = None):
         super().__init__(master)
-        self.labelframe = LabelFrame(self, text= 'Solicitações de Cálculo (kN e kN*cm)', width= 250, height = 100)
+        self.labelframe = LabelFrame(self, text= 'Solicitações de Cálculo (kN e kN*cm)', width= 300, height = 120)
         self.labelframe.grid(row= 0 , column=  0)
         self.labelframe.grid_propagate(False)  
 
@@ -147,36 +151,48 @@ class Solicitacoes(Frame):
         self.entry_ncsd = Entry(self.labelframe, width = 10)
         self.entry_ncsd.insert(0,"0")
         self.entry_ncsd.grid(row = 0, column= 1, padx= 3, pady = (5,0), sticky='w')
+        self.btn_ncsd = Button(self.labelframe, text="!", width = 2)
+        self.btn_ncsd.grid(row=0, column= 2, pady = (5,3))
 
         self.label_ntsd = Label(self.labelframe, text= 'Nt,Sd')
         self.label_ntsd.grid(row=1, column= 0, pady = 3, padx= (10,0))
         self.entry_ntsd = Entry(self.labelframe, width = 10)
         self.entry_ntsd.insert(0,"0")
         self.entry_ntsd.grid(row = 1, column= 1, padx= 3, sticky='w')
+        self.btn_ntsd = Button(self.labelframe, text="!", width = 2, command= self.master.lista_tracao)
+        self.btn_ntsd.grid(row=1, column= 2, pady = (5,3))
 
         self.label_mxsd = Label(self.labelframe, text= 'Mx,Sd')
         self.label_mxsd.grid(row=2, column= 0, pady = 3, padx= (10,0))
         self.entry_mxsd = Entry(self.labelframe, width = 10)
         self.entry_mxsd.insert(0,"0")
         self.entry_mxsd.grid(row = 2, column= 1, pady = 3,padx= 3, sticky='w')
+        self.btn_mxsd = Button(self.labelframe, text="!", width = 2)
+        self.btn_mxsd.grid(row=2, column= 2, pady = (5,3))
 
         self.label_vxsd = Label(self.labelframe, text= 'Vx,Sd')
-        self.label_vxsd.grid(row=0, column= 2, pady = (5,3))
+        self.label_vxsd.grid(row=0, column= 3, pady = (5,3))
         self.entry_vxsd = Entry(self.labelframe, width = 10)
         self.entry_vxsd.insert(0,"0")
-        self.entry_vxsd.grid(row = 0, column= 3, pady = (5,0), sticky='w')
+        self.entry_vxsd.grid(row = 0, column= 4, pady = (5,0), sticky='w')
+        self.btn_vxsd = Button(self.labelframe, text="!", width = 2)
+        self.btn_vxsd.grid(row=0, column= 5, pady = (5,3))
 
         self.label_vysd = Label(self.labelframe, text= 'Vy,Sd')
-        self.label_vysd.grid(row=1, column= 2, pady = 3)
+        self.label_vysd.grid(row=1, column= 3, pady = 3)
         self.entry_vysd = Entry(self.labelframe, width = 10)
         self.entry_vysd.insert(0,"0")
-        self.entry_vysd.grid(row = 1, column= 3, sticky='w')
+        self.entry_vysd.grid(row = 1, column= 4, sticky='w')
+        self.btn_vysd = Button(self.labelframe, text="!", width = 2)
+        self.btn_vysd.grid(row=1, column= 5, pady = (5,3))
 
         self.label_mysd = Label(self.labelframe, text= 'My,Sd')
-        self.label_mysd.grid(row=2, column= 2, padx= 5)
+        self.label_mysd.grid(row=2, column= 3, padx= 5)
         self.entry_mysd = Entry(self.labelframe, width = 10)
         self.entry_mysd.insert(0,"0")
-        self.entry_mysd.grid(row = 2, column= 3, sticky='w')
+        self.entry_mysd.grid(row = 2, column= 4, sticky='w')
+        self.btn_mysd = Button(self.labelframe, text="!", width = 2)
+        self.btn_mysd.grid(row=2, column= 5, pady = (5,3))
 
 class Aco(Frame):
     def __init__(self, master = None):
@@ -211,7 +227,7 @@ class Aco(Frame):
 class Frame_Cb(Frame):
     def __init__(self, master = None):
         super().__init__(master)
-        self.labelframe = LabelFrame(self, text= 'Coef. Cb', width= 250, height = 50)
+        self.labelframe = LabelFrame(self, text= 'Coef. Cb', width= 300, height = 50)
         self.labelframe.grid_propagate(False) 
         self.labelframe.grid(row= 0 , column=  0)
 
@@ -255,7 +271,7 @@ class Botoes(Frame):
 class Comp_Barras(Frame):
     def __init__(self, master = None):
         super().__init__(master)
-        self.labelframe = LabelFrame(self, text= 'Comprimentos das barras (cm)', width= 250, height = 80)
+        self.labelframe = LabelFrame(self, text= 'Comprimentos das barras (cm)', width= 300, height = 80)
         self.labelframe.grid(row= 0 , column=  0)
         self.labelframe.grid_propagate(False)  
 
@@ -478,7 +494,6 @@ class Frame_Resultados(Frame):
         self.label_ntrd = Label(self.label_tit, text= 'Nt,Rd')
         self.label_ntrd.grid(row=1, column=0, padx= (10,0) )
         self.entry_ntrd = Entry(self.label_tit, width = 10)
-        #self.entry_ntrd.config(state='readonly')
         self.entry_ntrd.grid(row=1, column=1, padx = 3 , pady = 3)
 
         self.label_ncrd = Label(self.label_tit, text= 'Nc,Rd')
